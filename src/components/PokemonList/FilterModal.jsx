@@ -4,17 +4,25 @@ import { colours } from '../../data/colours';
 
 function FilterModal({ showModal, handleFilter, closeModal, pokemons }) {
   const [types, setTypes] = useState([]);
+  const [selectedType, setSelectedType] = useState('All');
 
   // Extract unique types from pokemons
   useEffect(() => {
     const uniqueTypes = [...new Set(pokemons.flatMap((pokemon) => pokemon.types))];
     setTypes(uniqueTypes);
   }, [pokemons]);
-  if (!showModal) return null; // Jika showModal false, jangan render modal.
+
+  const handleTypeChange = (e) => {
+    const newType = e.target.value;
+    setSelectedType(newType); // Update state nilai filter
+    handleFilter(newType); // Panggil fungsi handleFilter untuk menerapkan filter
+  };
+
+  if (!showModal) return null;
 
   return (
-    <div className=" fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white p-6 rounded-md">
+    <div className={`fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300 ${showModal ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+      <div className={`bg-white p-6 rounded-md w-3/6 transition-transform duration-500 transform ${showModal ? 'translate-x-0' : 'translate-x-full'}`}>
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-bold mr-10">Filter by Type</h2>
           <button onClick={closeModal} className="px-3 py-1 bg-red-500 text-white rounded-full hover:bg-red-700 transition duration-300">
@@ -26,8 +34,17 @@ function FilterModal({ showModal, handleFilter, closeModal, pokemons }) {
           <label htmlFor="type-filter" className="block text-sm font-medium">
             Select Type:
           </label>
-          <select id="type-filter" onChange={(e) => handleFilter(e.target.value)} className="w-full px-1 py-2 border border-gray-300 rounded-md">
-            <option value="">All</option>
+          <select
+            id="type-filter"
+            value={selectedType}
+            style={{
+              backgroundColor: colours[selectedType.toLowerCase()],
+              color: selectedType === 'All' ? 'black' : 'White',
+            }}
+            onChange={handleTypeChange}
+            className="w-full p-2 border border-gray-300 rounded-md text-slate-700"
+          >
+            <option value="All">All</option>
             {types.map((type) => (
               <option
                 key={type}

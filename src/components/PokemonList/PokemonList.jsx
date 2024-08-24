@@ -7,12 +7,19 @@ function PokemonList() {
   const [pokemons] = useState(pokemonJSON);
   const [filterPokemons, setFilterPokemons] = useState(pokemonJSON);
   const [showModal, setShowModal] = useState(false); // Mengontrol modal
+  const [currentPage, setCurrentPage] = useState(1);
+  const pokemonsPerPage = 12;
+  const totalPages = Math.ceil(filterPokemons.length / pokemonsPerPage);
+  const indexOfLastPokemon = currentPage * pokemonsPerPage;
+  const indexOfFirstPokemon = indexOfLastPokemon - pokemonsPerPage;
+  const currentPokemons = filterPokemons.slice(indexOfFirstPokemon, indexOfLastPokemon);
 
   const handleSearch = (e) => {
     const search = pokemons.filter((item) => {
-      return item.name.toLowerCase().includes(e.target.value);
+      return item.name.toLowerCase().includes(e.target.value.toLowerCase());
     });
     setFilterPokemons(search);
+    setCurrentPage(1); // Reset halaman ke 1 setelah pencarian
   };
 
   const handleFilter = (type) => {
@@ -23,15 +30,21 @@ function PokemonList() {
       setFilterPokemons(filtered);
     }
     setShowModal(false); // Tutup modal setelah memilih filter
+    setCurrentPage(1); // Reset halaman ke 1 setelah filter
+  };
+
+  // Fungsi untuk berpindah halaman
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
   };
 
   return (
     <div>
-      <div className="w-[80vh] flex items-center justify-between my-4  mx-auto">
-        <input type="text" placeholder="cari pokemon..." className="block w-[100%] p-4 text-lg shadow-md rounded-md border-2 border-black hover:shadow-custom-black transition-shadow duration-500" onChange={handleSearch} />
+      <div className="flex flex-col sm:flex-row justify-center items-center w-full sm:w-1/2 mx-auto my-4 gap-4">
+        <input type="text" placeholder="cari pokemon..." className="block w-full p-2 text-lg shadow-md rounded-md border-2 border-black hover:shadow-custom-black transition-shadow duration-500" onChange={handleSearch} />
 
         {/* Tombol Filter dengan Icon */}
-        <button onClick={() => setShowModal(true)} className="ml-4 p-2 bg-blue-500 text-white rounded-full hover:bg-blue-700">
+        <button onClick={() => setShowModal(true)} className="p-2 bg-blue-500 text-white rounded-full hover:bg-blue-700">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M4 4h16M4 12h16M4 20h16" />
           </svg>
@@ -39,8 +52,20 @@ function PokemonList() {
       </div>
 
       {/* Daftar Pokemon */}
-      <div className="flex justify-center gap-8 flex-wrap my-10 mx-auto">{filterPokemons.length === 0 ? <div>data tidak ditemukan</div> : filterPokemons.map((item) => <PokemonItem key={item.id} pokemon={item} />)}</div>
+      <div className="w-fit mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 justify-items-center gap-y-8 gap-x-8 mt-10 mb-5">
+        {filterPokemons.length === 0 ? <div>data tidak ditemukan</div> : currentPokemons.map((item) => <PokemonItem key={item.id} pokemon={item} />)}
+      </div>
 
+      {/* Pagination */}
+      <div className="flex justify-center my-6">
+        {Array.from({ length: totalPages }, (_, index) => (
+          <button key={index} className={`mx-1 px-3 py-1 text-sm sm:text-base border rounded-md ${index + 1 === currentPage ? 'bg-blue-500 text-white' : 'bg-gray-200'}`} onClick={() => handlePageChange(index + 1)}>
+            {index + 1}
+          </button>
+        ))}
+      </div>
+
+      {/*filter modal  */}
       <FilterModal showModal={showModal} handleFilter={handleFilter} closeModal={() => setShowModal(false)} pokemons={pokemons} />
     </div>
   );

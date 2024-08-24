@@ -1,2 +1,2 @@
-- ubah stylenya jadi pakai tailwind
-- cobain pagination
+- cobain pagination (oke)
+- bikin responsive
