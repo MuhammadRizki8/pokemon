@@ -3,9 +3,9 @@ import { colours } from '../../data/colours';
 import PropTypes from 'prop-types';
 function PokemonItem({ pokemon }) {
   return (
-    <div className="pokemon-card" style={{ backgroundColor: pokemon.color }}>
+    <div className="pokemon-card " style={{ backgroundColor: pokemon.color }}>
       <img src={pokemon.imageUrl} alt={pokemon.name} width={250} />
-      <h1>{pokemon.name}</h1>
+      <h1 className="text-2xl font-bold">{pokemon.name}</h1>
       <div className="types-container">
         {pokemon.types.map((item, index) => (
           <span
