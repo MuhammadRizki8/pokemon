@@ -1,0 +1,2 @@
+- ubah stylenya jadi pakai tailwind
+- cobain pagination
