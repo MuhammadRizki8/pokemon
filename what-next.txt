@@ -1,2 +1,4 @@
 - cobain pagination (oke)
-- bikin responsive
+- bikin responsive (ok)
+- detail page (oke)
+- coba radar chart
