@@ -8,7 +8,7 @@ function PokemonList() {
   const [filterPokemons, setFilterPokemons] = useState(pokemonJSON);
   const [showModal, setShowModal] = useState(false); // Mengontrol modal
   const [currentPage, setCurrentPage] = useState(1);
-  const pokemonsPerPage = 12;
+  const pokemonsPerPage = 10;
   const totalPages = Math.ceil(filterPokemons.length / pokemonsPerPage);
   const indexOfLastPokemon = currentPage * pokemonsPerPage;
   const indexOfFirstPokemon = indexOfLastPokemon - pokemonsPerPage;
@@ -56,7 +56,7 @@ function PokemonList() {
       </div>
 
       {/* Daftar Pokemon */}
-      <div className="w-fit mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 justify-items-center gap-4 sm:gap-8 mt-10 mb-5">
+      <div className="container w-full sm:w-10/12 sm:mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 justify-items-center gap-2 sm:gap-6 mt-10 mb-5">
         {filterPokemons.length === 0 ? <div>data tidak ditemukan</div> : currentPokemons.map((item) => <PokemonItem key={item.id} pokemon={item} />)}
       </div>
 
