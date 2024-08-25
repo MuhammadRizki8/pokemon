@@ -40,7 +40,11 @@ function PokemonList() {
 
   return (
     <div>
-      <div className="flex flex-col sm:flex-row justify-center items-center w-full sm:w-1/2 mx-auto my-4 gap-4">
+      <div className="bg-blue-500 text-white py-2 px-4 font-jura">
+        <h1 className="text-xl sm:text-lg font-bold">Hallo</h1>
+        <p className="mt-2">ini website buat main-main react-tailwind. pokoknya tempat nyoba2 frontend</p>
+      </div>
+      <div className="flex sm:flex-row justify-center items-center w-3/4 sm:w-1/2 mx-auto my-4 gap-4">
         <input type="text" placeholder="cari pokemon..." className="block w-full p-2 text-lg shadow-md rounded-md border-2 border-black hover:shadow-custom-black transition-shadow duration-500" onChange={handleSearch} />
 
         {/* Tombol Filter dengan Icon */}
@@ -52,7 +56,7 @@ function PokemonList() {
       </div>
 
       {/* Daftar Pokemon */}
-      <div className="w-fit mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 justify-items-center gap-y-8 gap-x-8 mt-10 mb-5">
+      <div className="w-fit mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 justify-items-center gap-4 sm:gap-8 mt-10 mb-5">
         {filterPokemons.length === 0 ? <div>data tidak ditemukan</div> : currentPokemons.map((item) => <PokemonItem key={item.id} pokemon={item} />)}
       </div>
 

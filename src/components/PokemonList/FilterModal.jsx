@@ -22,9 +22,9 @@ function FilterModal({ showModal, handleFilter, closeModal, pokemons }) {
 
   return (
     <div className={`fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300 ${showModal ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-      <div className={`bg-white p-6 rounded-md w-3/6 transition-transform duration-500 transform ${showModal ? 'translate-x-0' : 'translate-x-full'}`}>
+      <div className={`bg-white p-6 rounded-md w-3/4 sm:w-3/6 transition-transform duration-500 transform ${showModal ? 'translate-x-0' : 'translate-x-full'}`}>
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-bold mr-10">Filter by Type</h2>
+          <h2 className="text-lg font-bold mr-10">Filter</h2>
           <button onClick={closeModal} className="px-3 py-1 bg-red-500 text-white rounded-full hover:bg-red-700 transition duration-300">
             &times;
           </button>

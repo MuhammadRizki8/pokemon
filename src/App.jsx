@@ -1,15 +1,15 @@
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PokemonList from './components/PokemonList/PokemonList';
-('./components/PokemonList/PokemonList');
+import PokemonDetail from './components/PokemonDetail/PokemonDetail';
+
 function App() {
   return (
-    <>
-      <div className="bg-blue-500 text-white py-2 px-4 font-jura">
-        <h1 className="text-xl font-bold">Hallo</h1>
-        <p className="mt-2">ini website buat main-main react-tailwind. pokoknya tempat nyoba2 frontend</p>
-      </div>
-
-      <PokemonList />
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<PokemonList />} />
+        <Route path="/pokemon/:id" element={<PokemonDetail />} />
+      </Routes>
+    </Router>
   );
 }
 
